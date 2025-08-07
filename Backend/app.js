@@ -4,6 +4,7 @@ import cors from 'cors';
 import { config } from 'dotenv';
 import morgan from 'morgan';
 import userRoutes from './routes/user.routes.js';
+import CourseRouters from './routes/course.router.js';
 import errorMiddleware from './middleware/error.middleware.js';
 config()
 
@@ -32,6 +33,7 @@ app.use('/ping', (req, res) => {
 
 //routes of 3 module
 app.use('/api/v1/user/', userRoutes)
+app.use('/api/v1/courses/',CourseRouters)
 
 
 app.use((req, res) => {

@@ -93,8 +93,8 @@ const register = async (req, res, next) => {
 
 }
 const login = async (req, res, next) => {
+    const { email, password } = req.body;
     try {
-        const { email, password } = req.body;
 
         if (!email || !password) {
             return next(new AppError("All fields are required ", 400))
@@ -119,8 +119,8 @@ const login = async (req, res, next) => {
             message: "User loogedin successfully",
             user
         })
-    } catch (error) {
-        return next(new AppError(e.message, 400))
+    } catch (err) {
+        return next(new AppError(err.message, 400))
     }
 }
 
@@ -311,8 +311,8 @@ const updateUser = async (req, res, next) => {
     await user.save();
 
     res.status(200).json({
-        success:true,
-        message:"User Details Updated Successfully "
+        success: true,
+        message: "User Details Updated Successfully "
     })
 
 }
