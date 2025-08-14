@@ -1,11 +1,16 @@
 import { Router } from 'express'
-import { getAllCourses, getLecturesByCourseId } from '../controllers/course.controller.js';
+import { createCourse, getAllCourses, getLecturesByCourseId, removeCourse, updateCourse } from '../controllers/course.controller.js';
+import upload from '../middleware/multer.middleware.js';
 
 const router = Router()
 
-router.get('/', getAllCourses)
+router.post('/createCourse',upload.single("thumbnail"),createCourse)
+router.get('/getAllCourses',getAllCourses)
 
 router.route('/:id')
-    .get(getLecturesByCourseId);
+    .get(getLecturesByCourseId)
+    .put(updateCourse)
+    .delete(removeCourse)
+
 
 export default router
