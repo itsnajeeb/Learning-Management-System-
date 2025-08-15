@@ -34,8 +34,16 @@ const courseSchema = new Schema({
 
     lectures: [
         {
-            title: String,
-            description: String,
+            title: {
+                type: String,
+                maxLength: [40, "Title should be less then 40 character"],
+                trim: true,
+            },
+            description: {
+                type: String,
+                maxLength: [99, "Description should be less then 100 character"],
+                trim: true,
+            },
             lecture: {
                 public_id: {
                     type: String,
@@ -50,12 +58,12 @@ const courseSchema = new Schema({
     ],
     numberOfLectures: {
         type: Number,
-        default:0,
+        default: 0,
     },
     createdBy: {
         type: String,
-        required:true,
-        
+        required: true,
+
     },
 
 }, {
