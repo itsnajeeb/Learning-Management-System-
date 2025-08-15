@@ -6,7 +6,7 @@ const storage = multer.diskStorage({
     filename: (_req, file, cb) => {
         cb(null, file.originalname); // ✅ Save as original filename (OK)
     },
-});
+}); 
 
 const fileFilter = (_req, file, cb) => {
     const ext = path.extname(file.originalname).toLowerCase(); // ✅ Normalize extension

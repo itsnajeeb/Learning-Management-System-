@@ -2,8 +2,8 @@ import AppError from "../utils/error.utils.js";
 import jwt from "jsonwebtoken";
 
 const isLoggedIn = (req, res, next) => {
-
     try {
+
         const { token } = req.cookies;
 
         if (!token) {
@@ -11,16 +11,30 @@ const isLoggedIn = (req, res, next) => {
         }
 
         const userProfile = jwt.verify(token, process.env.JWT_SECRET);
-        console.log(userProfile);
+        // console.log('User Profile > ', userProfile);
         req.user = userProfile
+        // console.log('Request.user value > ', req.user);
+        next()
+
     }
+
 
     catch (err) {
         if (err.name === 'TokenExpiredError') {
             return next(new AppError("Session expired. Please log in again.", 401));
         }
         return next(new AppError("Invalid token. Please log in again.", 401));
-    } next()
-
+    }
 }
-export default isLoggedIn
+
+const authorizedRoles = (...roles) => async (req, res, next) => {
+    const currentUserRole = req.user.role;
+    if (!roles.includes(currentUserRole)) {
+        return next(new AppError("You do not have permission to access this route ", 500))
+    }
+    next();
+}
+export {
+    isLoggedIn,
+    authorizedRoles,
+}

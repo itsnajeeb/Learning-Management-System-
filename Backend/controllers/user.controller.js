@@ -141,7 +141,7 @@ const getProfile = async (req, res, next) => {
 
     try {
         const userId = req.user.id;
-        console.log("user Id ", userId);
+        // console.log("user Id ", userId);
 
 
         const user = await User.findById(userId);
