@@ -6,6 +6,7 @@ import morgan from 'morgan';
 import userRoutes from './routes/user.routes.js';
 import CourseRouters from './routes/course.router.js';
 import errorMiddleware from './middleware/error.middleware.js';
+import paymentRoutes from './routes/payment.routes.js';
 config()
 
 
@@ -34,6 +35,7 @@ app.use('/ping', (req, res) => {
 //routes of 3 module
 app.use('/api/v1/user/', userRoutes)
 app.use('/api/v1/courses/',CourseRouters)
+app.use('/api/v1/payments/',paymentRoutes)
 
 
 app.use((req, res) => {
